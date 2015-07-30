@@ -7,8 +7,8 @@ State: Alpha
 The purpose of this project is to provide an image of Sabayon base.
 It is just a gentoo stage3 + entropy
 
-UPDATE: Images are also on Docker Hub [sabayon/base-amd64](https://registry.hub.docker.com/u/sabayon/base-amd64/) and the already squashed image, 
-[sabayon/base-amd64-squashed](https://registry.hub.docker.com/u/sabayon/base-amd64-squashed/)
+UPDATE: Images are also on Docker Hub [sabayon/base-armhfp](https://registry.hub.docker.com/u/sabayon/base-armhfp/) and the already squashed image, 
+[sabayon/base-armhfp-squashed](https://registry.hub.docker.com/u/sabayon/base-armhfp-squashed/)
 
 ## First steps on docker
 
@@ -18,13 +18,13 @@ Ensure to have the daemon started and running:
 
 ## Building sabayon-base locally
 
-    git clone https://github.com/mudler/docker-sabayon-base-amd64.git docker-sabayon-base
+    git clone https://github.com/mudler/docker-sabayon-base-armhfp.git docker-sabayon-base
     cd docker-sabayon-base
-    sudo docker build -t sabayon/base-amd64 .
+    sudo docker build -t sabayon/base-armhfp .
 
 ## Pulling sabayon-base from Docker Hub
 
-    sudo docker pull sabayon/base-amd64
+    sudo docker pull sabayon/base-armhfp
 
 ## Converting the image from Docker to use it with [Molecules](https://github.com/Sabayon/molecules)
 
@@ -32,12 +32,12 @@ Ensure to have the daemon started and running:
 
 After pulling the docker image, install [undocker](https://github.com/larsks/undocker/) and then as root:
 
-    docker save sabayon/base-amd64:latest | undocker -i -o base sabayon/base-amd64:latest
+    docker save sabayon/base-armhfp:latest | undocker -i -o base sabayon/base-armhfp:latest
 
 ### Using [docker-squash](https://github.com/jwilder/docker-squash)
 You can also squash the image with [docker-squash](https://github.com/jwilder/docker-squash) and then extract your layers.
 
-    sudo docker save sabayon/base-amd64:latest | sudo TMPDIR=/dev/shm docker-squash -t sabayon/base-amd64:squashed > /your/prefered/path/base.tar
+    sudo docker save sabayon/base-armhfp:latest | sudo TMPDIR=/dev/shm docker-squash -t sabayon/base-armhfp:squashed > /your/prefered/path/base.tar
 
 You can replace /dev/shm with your prefered tmpdir
 
@@ -45,11 +45,11 @@ You can replace /dev/shm with your prefered tmpdir
 
 The squash can also been accomplished creating a container from the image, exporting it and then importing it back.
 
-    sudo docker run -t -i sabayon/base-amd64:latest /bin/bash
+    sudo docker run -t -i sabayon/base-armhfp:latest /bin/bash
     $ exit # You should drop in a shell, exit, you should see a container id, otherwise find it :
     sudo docker ps -l
-    sudo docker export <CONTAINER ID> | docker import - sabayon/base-amd64:squashed
-    docker save sabayon/base-amd64:squashed | undocker -i -o base sabayon/base-amd64:squashed
+    sudo docker export <CONTAINER ID> | docker import - sabayon/base-armhfp:squashed
+    docker save sabayon/base-armhfp:squashed | undocker -i -o base sabayon/base-armhfp:squashed
 
 Docker will loose the history revision and then you can estract the layer, using as base for chroot.
 
