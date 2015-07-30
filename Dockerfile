@@ -12,7 +12,7 @@ ENV LC_ALL=en_US.UTF-8
 # Upgrading portage and installing necessary packages
 RUN rm -rf '/usr/portage/metadata/timestamp.chk' && \
 	 emerge --sync --quiet && \
-	layman -S && layman -a sabayon
+	layman -S && layman -a sabayon && layman -a sabayon-distro
 
 # Configure the sabayon box, installing equo setting up locales
 ADD ./script/sabayon-configuration.sh /
