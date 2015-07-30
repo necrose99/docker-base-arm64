@@ -6,8 +6,8 @@ cd /opt/sabayon-build/conf/armhfp/portage
 # keep your specific stuff in "myconf" branch:
 #git checkout -b myconf
 # symlink to your <arch>:
-ln -sf make.conf make.conf
-ln -sf package.env package.env
+#ln -sf make.conf make.conf
+#ln -sf package.env package.env
 # add & commit
 #git add make.conf package.env
 git config --global user.name "root"
