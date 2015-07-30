@@ -2,6 +2,9 @@ FROM sabayon/gentoo-stage3-base-armhf
 
 MAINTAINER mudler <mudler@sabayonlinux.org>
 
+# Supporting crossbuilding with binfmt
+ADD ext/qemu-arm-static /usr/bin/qemu-arm
+
 # Set locales to en_US.UTF-8
 RUN echo "en_US.UTF-8 UTF-8 " >> /etc/locale.gen &&  locale-gen &&  eselect locale set en_US.utf8 && env-update && source /etc/profile
 ENV LC_ALL=en_US.UTF-8

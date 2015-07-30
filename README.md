@@ -59,3 +59,17 @@ If you are planning to use the resulting files as a chroot, don't forget to set 
 
     echo "nameserver 208.67.222.222" > base/etc/resolv.conf
 
+
+## 2 tricks on crosscompiling/building from an alien architecture
+
+### Enabling arm support
+
+	echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm:' > /proc/sys/fs/binfmt_misc/register
+	
+On the stage3, qemu-arm is not exported by default:
+
+	docker run -t -i -v $(which qemu-arm):/usr/bin/qemu-arm sabayon/gentoo-stage3-base-armhf uname -m
+
+On the base it is
+	
+	docker run -t -i sabayon/base-armhf uname -m
