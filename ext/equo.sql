@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS settings (
                     setting_value VARCHAR,
                     PRIMARY KEY(setting_name)
                 );
-INSERT INTO "settings" VALUES('arch', 'amd64');
+INSERT INTO "settings" VALUES('arch', 'armv7l');
 INSERT INTO "settings" VALUES('on_delete_cascade', '1');
 INSERT INTO "settings" VALUES('_baseinfo_extrainfo_2010', '1');
 INSERT INTO "settings" VALUES('schema_revision', '6');
