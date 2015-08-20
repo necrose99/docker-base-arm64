@@ -64,11 +64,13 @@ If you are planning to use the resulting files as a chroot, don't forget to set 
 
 ### Enabling arm support
 
-	echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm:' > /proc/sys/fs/binfmt_misc/register
+Copy ext/qemu-arm-static to /usr/bin/binfmt, then:
+
+	echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-binfmt:' > /proc/sys/fs/binfmt_misc/register
 	
 On the stage3, qemu-arm is not exported by default:
 
-	docker run -t -i -v $(which qemu-arm):/usr/bin/qemu-arm sabayon/gentoo-stage3-base-armhf uname -m
+	docker run -t -i -v /usr/bin/qemu-arm-binfmt:/usr/bin/qemu-arm-binfmt sabayon/gentoo-stage3-base-armhf uname -m
 
 On the base it is
 	
