@@ -3,7 +3,7 @@ FROM varakur/arm64-coreos
 MAINTAINER necrose99 <mike@michaellawrenceit.com>
 
 # Supporting crossbuilding with binfmt
-ADD ext/qemu-static-aarch64 /usr/bin/qemu-aarch64-static
+ADD ext/qemu-aarch64-binfmt /usr/bin/qemu-aarch64-binfmt
 ADD ./script/qemu-arm64.conf-gen.sh
 RUN /bin/bash /qemu-arm64.conf-gen.sh
 # Set locales to en_US.UTF-8
