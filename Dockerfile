@@ -1,10 +1,11 @@
-FROM sabayon/gentoo-stage3-base-armhf
+FROM varakur/arm64-coreos
 
-MAINTAINER mudler <mudler@sabayonlinux.org>
+MAINTAINER necrose99 <mike@michaellawrenceit.com>
 
 # Supporting crossbuilding with binfmt
-ADD ext/qemu-aarch64-static /usr/bin/qemu-aarch64-static
-
+ADD ext/qemu-static-aarch64 /usr/bin/qemu-aarch64-static
+ADD ./script/qemu-arm64.conf-gen.sh
+RUN /bin/bash /qemu-arm64.conf-gen.sh
 # Set locales to en_US.UTF-8
 RUN echo "en_US.UTF-8 UTF-8 " >> /etc/locale.gen &&  locale-gen &&  eselect locale set en_US.utf8 && env-update && source /etc/profile
 ENV LC_ALL=en_US.UTF-8
@@ -33,4 +34,4 @@ RUN /bin/bash /sabayon-configuration-build.sh && rm -rf /sabayon-configuration-b
 
 # Cleanup and applying configs
 ADD ./script/post-update.sh /post-update.sh
-RUN /bin/bash /post-update.sh && rm -rf /post-update.sh
+RUN /bin/bash /post-update.sh && rm -rf /post-update.sh qemu-arm64.conf-gen.sh
