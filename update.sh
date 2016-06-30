@@ -4,18 +4,18 @@ set -e
 cd "$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
 
-stage3="$(wget -qO- 'http://distfiles.gentoo.org/releases/arm/autobuilds/latest-stage3-armv7a_hardfp.txt' | grep -v '#' | awk '{print $1}')"
+#stage3="$(wget -qO- 'http://distfiles.gentoo.org/releases/arm/autobuilds/latest-stage3-armv7a_hardfp.txt' | grep -v '#' | awk '{print $1}')"
 
 
-if [ -z "$stage3" ]; then
-	echo >&2 'wtf failure'
-	exit 1
-fi
+#if [ -z "$stage3" ]; then
+#	echo >&2 'wtf failure'
+#	exit 1
+#fi
 
-url="http://distfiles.gentoo.org/releases/arm/autobuilds/$stage3"
-name="$(basename "$stage3")"
+#url="http://distfiles.gentoo.org/releases/arm/autobuilds/$stage3"
+#name="$(basename "$stage3")"
 
-( set -x; wget -N "$url" )
+#( set -x; wget -N "$url" )
 
 base="${name%%.*}"
 image="gentoo-temp:$base"
@@ -40,10 +40,10 @@ main-repo = gentoo
 [gentoo]
 location = /usr/portage
 sync-type = rsync
-sync-uri = rsync://rsync.europe.gentoo.org/gentoo-portage
+sync-uri = rsync://rsync.us.gentoo.org/gentoo-portage/
 " > /etc/portage/repos.conf/gentoo.conf
 	emerge --sync
-	eselect profile set default/linux/arm/13.0/desktop
+	eselect profile set default/linux/arm64/13.0/desktop
 	emerge --buildpkg -j 2 --newuse --deep --with-bdeps=y @system @world
 	emerge -C editor ssh man man-pages openrc e2fsprogs service-manager
 	emerge --buildpkg -j 2 layman
